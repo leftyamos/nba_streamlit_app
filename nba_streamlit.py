@@ -81,6 +81,7 @@ def main():
         st.write('This model has an overall accuracy of 70% in predicting the position of an NBA player.') 
 
         st.info('''INFO: The numbers entered are the stats per game. It should reflect a player who has play on average of more than 40 games and more than 10 minutes per game in a single season.
+            \nExample: Kevin Durant's average carrer stats per game - 7.4/13.8/1.9/4.9/6.3/0.7/4.1/1.1/1.1 will result as small forward.
             \nFor more details about this model, click [here](https://github.com/leftyamos/amost.github.io/blob/master/NBA.ipynb).''')
         
         run_model(df)
@@ -93,7 +94,6 @@ def read_multi(file_list):
     take a list of files concat it together.
     
     '''
-    
     list_df = []
     
     for file in (file_list):
@@ -142,13 +142,16 @@ def run_eda(df):
 
 @st.cache
 def fit_model(df):
+    # Filter out 
+    df = df[(df['G']>= 40) & (df['MP']>=10)]
+
     # SVM Model
-    X3 = df[['2P','2PA','3P','3PA','DRB','ORB','AST','STL','BLK']]
+    X = df[['2P','2PA','3P','3PA','DRB','ORB','AST','STL','BLK']]
     y = df['Pos']
 
     svm_pipe = make_pipeline(MinMaxScaler(),SVC(C=1.0, gamma=10.0))
     
-    svm_pipe.fit(X3, y)
+    svm_pipe.fit(X, y)
     
     return svm_pipe
     
