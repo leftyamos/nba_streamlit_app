@@ -41,6 +41,8 @@ def main():
     side = st.sidebar.radio('Select', ('EDA','ML Model'))
     
     if side == 'EDA':
+        st.subheader('Exploratory Data Analysis')
+        
         run_eda(df)
         
         if st.sidebar.checkbox('Show Glossary'):
@@ -82,7 +84,7 @@ def main():
 
         st.info('''INFO: The numbers entered are the stats per game. It should reflect a player who has play on average of more than 40 games and more than 10 minutes per game in a single season.
             \nExample: Kevin Durant's average carrer stats per game - 7.4/13.8/1.9/4.9/6.3/0.7/4.1/1.1/1.1 will result as small forward.
-            \nFor more details about this model, click [here](https://github.com/leftyamos/amost.github.io/blob/master/NBA.ipynb).''')
+            \nFor more details about this model, click [here](https://github.com/leftyamos/amost.github.io/blob/master/NBA_Classification.ipynb).''')
         
         run_model(df)
      
